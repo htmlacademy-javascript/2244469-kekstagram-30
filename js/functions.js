@@ -19,6 +19,9 @@ const checkIfPalindrome = (string) => {
 };
 
 checkIfPalindrome('Лёша на полке клопа нашёл ');
+checkIfPalindrome('топот');
+checkIfPalindrome('ДовОд');
+checkIfPalindrome('Кекс');
 
 //console.log(checkIfPalindrome('Лёша на полке клопа нашёл '));
 
@@ -37,5 +40,10 @@ const getNumbers = (value) => {
 };
 
 getNumbers('ghjghjg 78569hgg jgh43 kgj33455');
+getNumbers('2023 год');
+getNumbers('ECMAScript 2022');
+getNumbers('1 кефир, 0.5 батона');
+getNumbers('агент 007');
+getNumbers('а я томат');
 
-//console.log(getNumbers('ghjghjg 78569hgg jgh43 kgj33455'));
+//console.log(getNumbers('а я томат'));
