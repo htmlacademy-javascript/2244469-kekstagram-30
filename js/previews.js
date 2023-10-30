@@ -27,8 +27,8 @@ const removePictures = () => {
   });
 };
 
-const getPicturesPreview = (picturesPreview) => {
-  picturesPreview.forEach(({ url, description, likes, comments }) => {
+const getPicturePreview = (picturePreview) => {
+  picturePreview.forEach(({ url, description, likes, comments }) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__img').alt = description;
@@ -40,4 +40,4 @@ const getPicturesPreview = (picturesPreview) => {
   picturesList.appendChild(picturesListFragment);
 };
 
-export { getPicturesPreview };
+export { getPicturePreview, picturesList, pictureTemplate };
