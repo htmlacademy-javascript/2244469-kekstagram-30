@@ -10,6 +10,9 @@
     </a>
   </template>
   */
+import './modal-window.js';
+import { PHOTOS_COUNT } from './constants.js';
+import { getPhotos } from './data.js';
 
 //Список фото, сюда добавляем
 const picturesList = document.querySelector('.pictures');
@@ -27,17 +30,25 @@ const removePictures = () => {
   });
 };
 
-const getPicturePreview = (picturePreview) => {
-  picturePreview.forEach(({ url, description, likes, comments }) => {
+const picturesArray = getPhotos(PHOTOS_COUNT);
+
+const getPicturePreview = () => {
+  picturesArray.forEach(({ url, description, likes, comments }) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__img').alt = description;
     pictureElement.querySelector('.picture__likes').textContent = likes;
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
+    pictureElement.url = url;
+    pictureElement.description = description;
+    pictureElement.likes = likes;
+    pictureElement.comments = comments;
     picturesListFragment.appendChild(pictureElement);
   });
   removePictures();
   picturesList.appendChild(picturesListFragment);
 };
 
-export { getPicturePreview, picturesList, pictureTemplate };
+getPicturePreview();
+
+export { getPicturePreview, picturesList, pictureTemplate, removePictures };

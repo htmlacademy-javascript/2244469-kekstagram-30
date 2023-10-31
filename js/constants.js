@@ -14,7 +14,7 @@ const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const MIN_COMMENTS = 0;
 const MAX_COMMENTS = 30;
-const MAX_POSTED_COMMENTS = 500;
+const MAX_POSTED_COMMENTS = 200;
 const AVATARS_COUNT = 6;
 const MESSAGES = [
   'Всё отлично!',

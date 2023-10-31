@@ -47,4 +47,4 @@ const getPhotos = (n) => {
   return photos;
 };
 
-export { getPhotos };
+export { getPhotos, getImageId, getPhotoId, getComments, getUniqueRandomInteger };
