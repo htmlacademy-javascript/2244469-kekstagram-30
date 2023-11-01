@@ -68,12 +68,15 @@ const checkMeetingPossibility = (workingHoursStart, workingHoursEnd, meetingStar
     return false;
   }
   return meetingHoursLeft >= meetingDuration;
-
 };
 
+checkMeetingPossibility();
+
+/*
 console.log(checkMeetingPossibility('8:15', '16:30', '15:00', 120));
 console.log(checkMeetingPossibility('08:00', '17:30', '14:00', 90)); // true
 console.log(checkMeetingPossibility('8:0', '10:0', '8:0', 120)); // true
 console.log(checkMeetingPossibility('08:00', '14:30', '14:00', 90)); // false
 console.log(checkMeetingPossibility('14:00', '17:30', '08:0', 90)); // false
 console.log(checkMeetingPossibility('8:00', '17:30', '08:00', 900)); // false
+*/

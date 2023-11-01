@@ -19,8 +19,8 @@ const getCommentID = getUniqueRandomInteger(0, MAX_POSTED_COMMENTS);
 const getComment = () => ({
   id: getCommentID(),
   avatar: `img/avatar-${getRandomInteger(1, AVATARS_COUNT)}.svg`,
-  message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
   name: NAMES[getRandomInteger(0, NAMES.length - 1)],
+  message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
 });
 
 const getComments = (n) => {
@@ -47,4 +47,4 @@ const getPhotos = (n) => {
   return photos;
 };
 
-export { getPhotos };
+export { getPhotos, getImageId, getPhotoId, getComments, getUniqueRandomInteger };

@@ -1,8 +1,8 @@
 import './utils.js';
-import { getPhotos } from './data.js';
+import './modal-window.js';
 import { PHOTOS_COUNT } from './constants.js';
-import { getPicturesPreview } from './previews.js';
+import { getPhotos } from './data.js';
+import { getPicturePreview } from './previews.js';
 
 
-const picturesPreview = getPhotos(PHOTOS_COUNT);
-getPicturesPreview(picturesPreview);
+getPicturePreview(getPhotos(PHOTOS_COUNT));
