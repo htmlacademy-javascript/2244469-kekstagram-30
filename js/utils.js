@@ -5,41 +5,18 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-// const getUniqueRandomInteger = (min, max) => {
-//   const arr = [];
-//   return function () {
-//     let flag = true;
-//     let randomInteger;
-//     if (arr.length >= (max - min + 1)) {
-//       console.error('Перебрали все числа из диапазона от ' + min + ' до ' + max);
-//       return null;
-//     }
-//     while (flag) {
-//       randomInteger = getRandomInteger(min, max);
-//       if (!arr.includes(randomInteger)) {
-//         arr.push(randomInteger);
-//         flag = false;
-//       }
-//     }
-//     return randomInteger;
-//   };
-// };
-
 const getUniqueRandomInteger = (min, max) => {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      // eslint-disable-next-line no-console
-      console.error(`Перебраны все числа из диапазона от ${ min } до ${ max}`);
-      return null;
+  const indexNumbers = [];
+  return () => {
+    let currentIndex = getRandomInteger(min, max);
+    if (indexNumbers.length === Math.floor(Math.max(min, max))) {
+      return '';
     }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
+    while (indexNumbers.includes(currentIndex)) {
+      currentIndex = getRandomInteger(min, max);
     }
-    previousValues.push(currentValue);
-    return currentValue;
+    indexNumbers.push(currentIndex);
+    return currentIndex;
   };
 };
 

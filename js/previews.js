@@ -1,18 +1,5 @@
-/*
-  <!-- Шаблон изображения случайного пользователя -->
-  <template id="picture">
-    <a href="#" class="picture">
-      <img class="picture__img" src="" width="182" height="182" alt="Случайная фотография">
-      <p class="picture__info">
-        <span class="picture__comments"></span>
-        <span class="picture__likes"></span>
-      </p>
-    </a>
-  </template>
-  */
 import './modal-window.js';
-import { PHOTOS_COUNT } from './constants.js';
-import { getPhotos } from './data.js';
+import { openModalWindow } from './modal-window.js';
 
 //Список фото, сюда добавляем
 const picturesList = document.querySelector('.pictures');
@@ -30,25 +17,31 @@ const removePictures = () => {
   });
 };
 
-const picturesArray = getPhotos(PHOTOS_COUNT);
-
-const getPicturePreview = () => {
-  picturesArray.forEach(({ url, description, likes, comments }) => {
+const getPicturePreview = (picturesArray) => {
+  picturesArray.forEach(({ id, url, description, likes, comments }) => {
+    removePictures();
     const pictureElement = pictureTemplate.cloneNode(true);
+    pictureElement.dataset.id = id;
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__img').alt = description;
     pictureElement.querySelector('.picture__likes').textContent = likes;
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
-    pictureElement.url = url;
-    pictureElement.description = description;
-    pictureElement.likes = likes;
-    pictureElement.comments = comments;
     picturesListFragment.appendChild(pictureElement);
   });
-  removePictures();
   picturesList.appendChild(picturesListFragment);
+  setListener(picturesArray);
 };
 
-getPicturePreview();
+
+function setListener (picturesArray) {
+  picturesList.addEventListener('click', (evt) => {
+    if (evt.target.closest('.picture')) {
+      const id = parseInt((evt.target.closest('.picture').dataset.id), 10);
+      const picture = picturesArray.find((item) => item.id === id);
+      evt.preventDefault();
+      openModalWindow(picture);
+    }
+  });
+}
 
 export { getPicturePreview, picturesList, pictureTemplate, removePictures };
