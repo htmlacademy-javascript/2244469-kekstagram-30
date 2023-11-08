@@ -36,6 +36,9 @@ const NAMES = [
   'Uchiyama',
   'Carl'
 ];
+const HASHTAGS_MAX_NUMBER = 5;
+const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
+const DESCRIPTION_MAX_LENGTH = 140;
 
 export {
   PHOTOS_COUNT,
@@ -48,5 +51,8 @@ export {
   MAX_POSTED_COMMENTS,
   AVATARS_COUNT,
   MESSAGES,
-  NAMES
+  NAMES,
+  HASHTAGS_MAX_NUMBER,
+  HASHTAG_REGEX,
+  DESCRIPTION_MAX_LENGTH
 };

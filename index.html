@@ -127,19 +127,12 @@
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
                   <div class="img-upload__field-wrapper">
-                    <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег" maxlength="104"
-                      data-pristine-hashtag-requirements-message-start="Хэш-тег должен начинаться с символа # (решётка)"
-                      data-pristine-hashtag-requirements-message-allowed-symbols="Хэш-тег должен состоять из букв и чисел без пробелов, спецсимволов (#, @, $ и т.п.), символов пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д."
-                      data-pristine-hashtag-requirements-message-add-letters="Хеш-тег не может состоять только из одной решётки"
-                      data-pristine-hashtag-requirements-message-max-length="Максимальная длина одного хэш-тега 20 символов, включая решётку"
-                      data-pristine-hashtag-requirements-message-add-space="Хэш-теги разделяются пробелами"
-                      data-pristine-hashtag-requirements-message-no-repeat="Один и тот же хэш-тег нельзя использовать дважды"
-                      data-pristine-hashtag-requirements-message-max-number="Можно указать не более пяти хэш-тегов">
+                    <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег">
                   </div>
                   <div class="img-upload__field-wrapper">
                     <textarea class="text__description" name="description" placeholder="Ваш комментарий..."
-                      maxlength="140"
-                      data-pristine-maxlength-message="Максимальная длина комментария 140 символов"></textarea>
+                    data-pristine-maxlength="140"
+                    data-pristine-maxlength-message="Комментарий не может быть длиннее 140 символов"></textarea>
                   </div>
                 </fieldset>
 
@@ -260,8 +253,7 @@
       <h2 class="data-error__title">Не удалось загрузить данные</h2>
     </section>
   </template>
-  <script src="./js/functions.js"></script>
-  <script src="./vendor/pristine/pristine.min.js"></script>
+  <script src="./vendor/pristine/pristine.min.js" type="text/javascript"></script>
   <script src="./js/main.js" type="module"></script>
 </body>
 
