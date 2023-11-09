@@ -1,28 +1,41 @@
-import { imageUploadForm } from './form.js';
-import { SCALE_MIN, SCALE_MAX, SCALE_STEP } from './constants.js';
+import { SCALE_MIN, SCALE_MAX, SCALE_DEFAULT, SCALE_STEP } from './constants.js';
 
-const scaleButtonMinus = imageUploadForm.querySelector('.scale__control--smaller');
-const scaleButtonPlus = imageUploadForm.querySelector('.scale__control--bigger');
-const scaleInputValue = imageUploadForm.querySelector('.scale__control--value');
-const pictureUploadPreview = imageUploadForm.querySelector('.img-upload__preview');
+const scaleButtonMinus = document.querySelector('.scale__control--smaller');
+const scaleButtonPlus = document.querySelector('.scale__control--bigger');
+const scaleInputValue = document.querySelector('.scale__control--value');
+const pictureUploadPreview = document.querySelector('.img-upload__preview img');
+
 let scaleCurrent = 100;
 
-scaleButtonMinus.addEventListener('click', () => {
+const scaleImage = () => {
+  pictureUploadPreview.style.transform = `scale(${scaleCurrent / 100})`;
+  scaleInputValue.value = `${scaleCurrent}%`;
+};
+
+const resetScale = () => {
+  scaleCurrent = SCALE_DEFAULT;
+  scaleImage(scaleCurrent);
+  scaleInputValue.value = `${SCALE_DEFAULT}%`;
+};
+
+const onMinusButtonClick = () => {
   if (scaleCurrent > SCALE_MIN) {
     scaleCurrent = scaleCurrent - SCALE_STEP;
-    scaleInputValue.value = `${scaleCurrent}%`;
-    pictureUploadPreview.style.transform = 'scale(0.' + scaleCurrent + ')';
+    scaleImage(scaleCurrent);
   }
-});
+};
 
-scaleButtonPlus.addEventListener('click', () => {
+const onPlusButtonClick = () => {
   if (scaleCurrent < SCALE_MAX) {
     scaleCurrent = scaleCurrent + SCALE_STEP;
-    scaleInputValue.value = `${scaleCurrent}%`;
-    if (scaleCurrent === SCALE_MAX) {
-      pictureUploadPreview.style.transform = 'scale(1)';
-    } else {
-      pictureUploadPreview.style.transform = 'scale(0.' + scaleCurrent + ')';
-    }
+    scaleImage(scaleCurrent);
   }
-});
+  if (scaleCurrent === SCALE_MAX) {
+    resetScale();
+  }
+};
+
+scaleButtonMinus.addEventListener('click', onMinusButtonClick);
+scaleButtonPlus.addEventListener('click', onPlusButtonClick);
+
+export { resetScale, pictureUploadPreview };

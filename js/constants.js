@@ -41,6 +41,7 @@ const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const DESCRIPTION_MAX_LENGTH = 140;
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;
+const SCALE_DEFAULT = 100;
 const SCALE_STEP = 25;
 
 export {
@@ -60,5 +61,6 @@ export {
   DESCRIPTION_MAX_LENGTH,
   SCALE_MIN,
   SCALE_MAX,
+  SCALE_DEFAULT,
   SCALE_STEP
 };
