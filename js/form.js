@@ -1,5 +1,6 @@
 import { isEscKey } from './utils.js';
 import { resetScale } from './scale.js';
+import { resetToDefault } from './effects.js';
 
 const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadContainer = imageUploadForm.querySelector('.img-upload__overlay');
@@ -10,6 +11,7 @@ const userDescriptionInput = imageUploadContainer.querySelector('.text__descript
 const submitButton = imageUploadContainer.querySelector('.img-upload__submit');
 
 imageUploadInput.addEventListener('change', () => {
+  resetToDefault();
   imageUploadContainer.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
@@ -49,6 +51,6 @@ function onDocumentKeydown(evt) {
   }
 }
 
-imageUploadContainer.classList.remove('hidden');
+imageUploadContainer.classList.remove('hidden');// necessary for now
 
 export { submitButton, userHashtagInput, userDescriptionInput, pristine };

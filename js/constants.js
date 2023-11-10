@@ -44,6 +44,53 @@ const SCALE_MAX = 100;
 const SCALE_DEFAULT = 100;
 const SCALE_STEP = 25;
 
+const EFFECTS = {
+  chrome: {
+    filter: 'grayscale',
+    unit: '',
+    min: 0,
+    max: 1,
+    step: 0.1
+  },
+  sepia: {
+    filter: 'sepia',
+    unit: '',
+    min: 0,
+    max: 1,
+    step: 0.1
+  },
+  marvin: {
+    filter: 'invert',
+    unit: '%',
+    min: 0,
+    max: 100,
+    step: 1
+  },
+  phobos: {
+    filter: 'blur',
+    unit: 'px',
+    min: 0,
+    max: 3,
+    step: 0.1
+  },
+  heat: {
+    filter: 'brightness',
+    unit: '',
+    min: 1,
+    max: 3,
+    step: 0.1
+  }
+};
+
+const CURRENT_EFFECT = {
+  filter: '',
+  unit: '',
+};
+
+const SLIDER_DEFAULT_MAX = 100;
+const SLIDER_DEFAULT_MIN = 100;
+const SLIDER_DEFAULT_STEP = 100;
+
 export {
   PHOTOS_COUNT,
   DESCRIPTIONS,
@@ -62,5 +109,10 @@ export {
   SCALE_MIN,
   SCALE_MAX,
   SCALE_DEFAULT,
-  SCALE_STEP
+  SCALE_STEP,
+  EFFECTS,
+  CURRENT_EFFECT,
+  SLIDER_DEFAULT_MAX,
+  SLIDER_DEFAULT_MIN,
+  SLIDER_DEFAULT_STEP
 };
