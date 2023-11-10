@@ -1,20 +1,21 @@
 import { isEscKey } from './utils.js';
+import { resetScale } from './scale.js';
+import { resetToDefault } from './effects.js';
 
 const imageUploadForm = document.querySelector('.img-upload__form');
-const imageUploadContainer = document.querySelector('.img-upload__overlay');
-const imageUploadInput = document.querySelector('.img-upload__input');
+const imageUploadContainer = imageUploadForm.querySelector('.img-upload__overlay');
+const imageUploadInput = imageUploadForm.querySelector('.img-upload__input');
 const imageUploadCloseButton = imageUploadForm.querySelector('.cancel');
 const userHashtagInput = imageUploadContainer.querySelector('.text__hashtags');
 const userDescriptionInput = imageUploadContainer.querySelector('.text__description');
 const submitButton = imageUploadContainer.querySelector('.img-upload__submit');
 
-imageUploadContainer.classList.remove('hidden'); // remove later, necessary just for now
-
 imageUploadInput.addEventListener('change', () => {
+  resetToDefault();
   imageUploadContainer.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-}); // преобоазовать согласно критерию д4
+});
 
 const pristine = new Pristine(imageUploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -25,19 +26,14 @@ const pristine = new Pristine(imageUploadForm, {
 
 const closeImageUploadForm = () => {
   imageUploadForm.reset();
+  resetScale();
   pristine.reset();
   imageUploadContainer.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-imageUploadCloseButton.addEventListener('click', () => closeImageUploadForm()); // тоже проверить на соотв д4
-
-function onDocumentKeydown(evt) {
-  if (isEscKey(evt) && evt.target !== userHashtagInput && evt.target !== userDescriptionInput) {
-    closeImageUploadForm();
-  }
-}
+imageUploadCloseButton.addEventListener('click', closeImageUploadForm());
 
 imageUploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
@@ -49,4 +45,12 @@ imageUploadForm.addEventListener('reset', () => {
   pristine.reset();
 });
 
-export { imageUploadForm, submitButton, userHashtagInput, userDescriptionInput, pristine };
+function onDocumentKeydown(evt) {
+  if (isEscKey(evt) && evt.target !== userHashtagInput && evt.target !== userDescriptionInput) {
+    closeImageUploadForm();
+  }
+}
+
+imageUploadContainer.classList.remove('hidden');// necessary for now
+
+export { submitButton, userHashtagInput, userDescriptionInput, pristine };
