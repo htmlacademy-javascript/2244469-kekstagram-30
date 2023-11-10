@@ -15,7 +15,7 @@ const scaleImage = () => {
 const resetScale = () => {
   scaleCurrent = SCALE_DEFAULT;
   scaleImage(scaleCurrent);
-  scaleInputValue.value = `${SCALE_DEFAULT}%`;
+  scaleInputValue.value = `${scaleCurrent}%`;
 };
 
 const onMinusButtonClick = () => {
