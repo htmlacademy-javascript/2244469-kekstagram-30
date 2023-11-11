@@ -51,6 +51,4 @@ function onDocumentKeydown(evt) {
   }
 }
 
-imageUploadContainer.classList.remove('hidden');// necessary for now
-
 export { submitButton, userHashtagInput, userDescriptionInput, pristine };
