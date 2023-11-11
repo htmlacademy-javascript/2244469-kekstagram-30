@@ -45,6 +45,10 @@ const SCALE_DEFAULT = 100;
 const SCALE_STEP = 25;
 
 const EFFECTS = {
+  default: {
+    filter: '',
+    unit: '',
+  },
   chrome: {
     filter: 'grayscale',
     unit: '',
@@ -82,11 +86,6 @@ const EFFECTS = {
   }
 };
 
-const CURRENT_EFFECT = {
-  filter: '',
-  unit: '',
-};
-
 const SLIDER_DEFAULT_MAX = 100;
 const SLIDER_DEFAULT_MIN = 100;
 const SLIDER_DEFAULT_STEP = 100;
@@ -111,7 +110,6 @@ export {
   SCALE_DEFAULT,
   SCALE_STEP,
   EFFECTS,
-  CURRENT_EFFECT,
   SLIDER_DEFAULT_MAX,
   SLIDER_DEFAULT_MIN,
   SLIDER_DEFAULT_STEP

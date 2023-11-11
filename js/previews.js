@@ -17,6 +17,17 @@ const removePictures = () => {
   });
 };
 
+const setListener = (picturesArray) => {
+  picturesList.addEventListener('click', (evt) => {
+    if (evt.target.closest('.picture')) {
+      const id = parseInt((evt.target.closest('.picture').dataset.id), 10);
+      const picture = picturesArray.find((item) => item.id === id);
+      evt.preventDefault();
+      openModalWindow(picture);
+    }
+  });
+};
+
 const getPicturePreview = (picturesArray) => {
   picturesArray.forEach(({ id, url, description, likes, comments }) => {
     removePictures();
@@ -31,17 +42,5 @@ const getPicturePreview = (picturesArray) => {
   picturesList.appendChild(picturesListFragment);
   setListener(picturesArray);
 };
-
-
-function setListener (picturesArray) {
-  picturesList.addEventListener('click', (evt) => {
-    if (evt.target.closest('.picture')) {
-      const id = parseInt((evt.target.closest('.picture').dataset.id), 10);
-      const picture = picturesArray.find((item) => item.id === id);
-      evt.preventDefault();
-      openModalWindow(picture);
-    }
-  });
-}
 
 export { getPicturePreview, picturesList, pictureTemplate, removePictures };

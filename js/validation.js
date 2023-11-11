@@ -1,14 +1,20 @@
 import { HASHTAGS_MAX_NUMBER, HASHTAG_REGEX, DESCRIPTION_MAX_LENGTH } from './constants.js';
-import { userHashtagInput, userDescriptionInput, pristine } from './form.js';
+
+const imageUploadForm = document.querySelector('.img-upload__form');
+const userHashtagInput = document.querySelector('.text__hashtags');
+const userDescriptionInput = document.querySelector('.text__description');
+
+const pristine = new Pristine(imageUploadForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper--error'
+});
 
 const ErrorText = {
   INVALID_REPEATED_HASHTAG: 'Хэш-теги не должны повторяться',
   INVALID_HASHTAGS_NUMBER: `Максимальное количество хэш-тегов: ${HASHTAGS_MAX_NUMBER}`,
   INVALID_HASHTAG_SYNTAX: 'Некорректный хэш-тег'
 };
-
-// const isValid = () => pristine.validate();
-// const resetValidation = () => pristine.reset();
 
 const getHashtagsArray = (value) => value.trim().split(' ').filter(Boolean);
 
@@ -58,4 +64,7 @@ pristine.addValidator(
   true
 );
 
-export { pristine, validateHashtagSyntax, validateHashtagsNumber, validateComment };
+const isValid = () => pristine.validate();
+const resetValidation = () => pristine.reset();
+
+export { pristine, isValid, resetValidation};

@@ -1,10 +1,15 @@
 import { pictureUploadPreview } from './scale.js';
-import { EFFECTS, CURRENT_EFFECT, SLIDER_DEFAULT_MAX, SLIDER_DEFAULT_MIN, SLIDER_DEFAULT_STEP } from './constants.js';
+import { EFFECTS, SLIDER_DEFAULT_MAX, SLIDER_DEFAULT_MIN, SLIDER_DEFAULT_STEP } from './constants.js';
 
 const effectsList = document.querySelector('.effects__list');
 const effectIntensityContainer = document.querySelector('.img-upload__effect-level');
 const effectIntensityValue = document.querySelector('.effect-level__value');
 const effectSlider = document.querySelector('.effect-level__slider');
+
+const currentEffect = {
+  filter: '',
+  unit: '',
+};
 
 noUiSlider.create(effectSlider, {
   range: {
@@ -35,31 +40,29 @@ const resetToDefault = () => {
 
 const setEffect = () => {
   effectIntensityValue.value = effectSlider.noUiSlider.get();
-  pictureUploadPreview.style.filter = `${CURRENT_EFFECT.filter}(${effectIntensityValue.value}${CURRENT_EFFECT.unit})`;
+  pictureUploadPreview.style.filter = `${currentEffect.filter}(${effectIntensityValue.value}${currentEffect.unit})`;
+};
+
+const sliderUpdate = ({ min, max, step }) => {
+  effectSlider.noUiSlider.updateOptions({
+    range: {
+      min,
+      max,
+    },
+    start: max,
+    step,
+  });
 };
 
 effectsList.addEventListener('change', (evt) => {
   const effectInput = evt.target.closest('.effects__radio');
-  if (effectInput) {
-    if (effectInput.value === 'none') {
-      resetToDefault();
-    } else {
-      effectIntensityContainer.classList.remove('hidden');
-      for (const effect in EFFECTS) {
-        if (effect === effectInput.value) {
-          CURRENT_EFFECT.filter = EFFECTS[effect].filter;
-          CURRENT_EFFECT.unit = EFFECTS[effect].unit;
-          effectSlider.noUiSlider.updateOptions({
-            range: {
-              min: EFFECTS[effect].min,
-              max: EFFECTS[effect].max,
-            },
-            start: EFFECTS[effect].max,
-            step: EFFECTS[effect].step,
-          });
-        }
-      }
-    }
+  if (evt.target.value === EFFECTS.default.filter) {
+    resetToDefault();
+  } else {
+    effectIntensityContainer.classList.remove('hidden');
+    currentEffect.filter = EFFECTS[effectInput.value].filter;
+    currentEffect.unit = EFFECTS[effectInput.value].unit;
+    sliderUpdate(EFFECTS[effectInput.value]);
   }
 });
 

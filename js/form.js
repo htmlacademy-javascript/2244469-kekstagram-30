@@ -1,6 +1,7 @@
 import { isEscKey } from './utils.js';
 import { resetScale } from './scale.js';
 import { resetToDefault } from './effects.js';
+import { isValid, resetValidation } from './validation.js';
 
 const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadContainer = imageUploadForm.querySelector('.img-upload__overlay');
@@ -17,17 +18,10 @@ imageUploadInput.addEventListener('change', () => {
   document.addEventListener('keydown', onDocumentKeydown);
 });
 
-const pristine = new Pristine(imageUploadForm, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper--error'
-}
-);
-
 const closeImageUploadForm = () => {
   imageUploadForm.reset();
+  resetValidation();
   resetScale();
-  pristine.reset();
   imageUploadContainer.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -36,13 +30,14 @@ const closeImageUploadForm = () => {
 imageUploadCloseButton.addEventListener('click', closeImageUploadForm());
 
 imageUploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+  if (!isValid) {
+    evt.preventDefault();
+  }
 });
 
 imageUploadForm.addEventListener('reset', () => {
   closeImageUploadForm();
-  pristine.reset();
+  resetValidation();
 });
 
 function onDocumentKeydown(evt) {
@@ -51,4 +46,4 @@ function onDocumentKeydown(evt) {
   }
 }
 
-export { submitButton, userHashtagInput, userDescriptionInput, pristine };
+export { submitButton };
