@@ -34,7 +34,7 @@ noUiSlider.create(effectSlider, {
 
 const resetToDefault = () => {
   effectIntensityContainer.classList.add('hidden');
-  pictureUploadPreview.style.filter = '';
+  pictureUploadPreview.style.filter = EFFECTS.default.filter;
   effectIntensityValue.value = SLIDER_DEFAULT_MAX;
 };
 

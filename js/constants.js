@@ -46,7 +46,7 @@ const SCALE_STEP = 25;
 
 const EFFECTS = {
   default: {
-    filter: '',
+    filter: 'none',
     unit: '',
   },
   chrome: {
@@ -88,7 +88,7 @@ const EFFECTS = {
 
 const SLIDER_DEFAULT_MAX = 100;
 const SLIDER_DEFAULT_MIN = 100;
-const SLIDER_DEFAULT_STEP = 100;
+const SLIDER_DEFAULT_STEP = 1;
 
 export {
   PHOTOS_COUNT,
