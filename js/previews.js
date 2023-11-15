@@ -1,16 +1,12 @@
 import './modal-window.js';
 import { openModalWindow } from './modal-window.js';
 
-//Список фото, сюда добавляем
 const picturesList = document.querySelector('.pictures');
 
-//Шаблон для добавления фото
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-//documentFragment
 const picturesListFragment = document.createDocumentFragment();
 
-//Удаление фото
 const removePictures = () => {
   document.querySelectorAll('.picture').forEach((card) => {
     card.remove();
