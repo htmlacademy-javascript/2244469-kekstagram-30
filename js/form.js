@@ -2,6 +2,9 @@ import { isEscKey } from './utils.js';
 import { resetScale } from './scale.js';
 import { resetToDefault } from './effects.js';
 import { isValid, resetValidation } from './validation.js';
+import { sendData } from './api.js';
+import { showSuccessMessage } from './form-messages.js';
+import { SubmitButtonStatus } from './constants.js';
 
 const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadContainer = imageUploadForm.querySelector('.img-upload__overlay');
@@ -11,7 +14,6 @@ const imageUploadCloseButton = imageUploadForm.querySelector('.cancel');
 const userHashtagInput = imageUploadContainer.querySelector('.text__hashtags');
 const userDescriptionInput = imageUploadContainer.querySelector('.text__description');
 const submitButton = imageUploadForm.querySelector('.img-upload__submit');
-
 const effectsPreviewImages = imageUploadForm.querySelectorAll('.effects__preview');
 
 const renderUploadImage = () => {
@@ -42,15 +44,36 @@ const closeImageUploadForm = () => {
 
 imageUploadCloseButton.addEventListener('click', closeImageUploadForm());
 
-imageUploadForm.addEventListener('submit', (evt) => {
-  if (!isValid) {
-    evt.preventDefault();
-  }
-});
+const disableSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonStatus.SENDING;
+};
+
+const enableSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonStatus.IDLE;
+};
+
+const setFormSubmit = (onSuccess) => {
+  imageUploadForm.addEventListener('submit', (evt) => {
+    if (isValid) {
+      evt.preventDefault();
+      disableSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(onSuccess)
+        .catch((err) => {
+          console.log(err.message);
+        });
+      showSuccessMessage();
+    }
+    // showErrorMessage();
+  });
+};
 
 imageUploadForm.addEventListener('reset', () => {
   closeImageUploadForm();
   resetValidation();
+  enableSubmitButton();
 });
 
 function onDocumentKeydown(evt) {
@@ -59,4 +82,4 @@ function onDocumentKeydown(evt) {
   }
 }
 
-export { submitButton };
+export { setFormSubmit, closeImageUploadForm };

@@ -2,9 +2,7 @@ import './modal-window.js';
 import { openModalWindow } from './modal-window.js';
 
 const picturesList = document.querySelector('.pictures');
-
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
 const picturesListFragment = document.createDocumentFragment();
 
 const removePictures = () => {

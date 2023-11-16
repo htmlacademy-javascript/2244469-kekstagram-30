@@ -1,3 +1,14 @@
+const BASE_URL = 'https://30.javascript.pages.academy/kekstagram';
+const Route = {
+  GET_DATA: '/data',
+  SEND_DATA: '/',
+};
+
+const SubmitButtonStatus = {
+  SENDING: 'Публикуем...',
+  IDLE: 'Опубликовать',
+};
+
 const PHOTOS_COUNT = 25;
 const DESCRIPTIONS = [
   'Мороз и солнце; день чудесный!',
@@ -91,6 +102,9 @@ const SLIDER_DEFAULT_MIN = 100;
 const SLIDER_DEFAULT_STEP = 1;
 
 export {
+  BASE_URL,
+  Route,
+  SubmitButtonStatus,
   PHOTOS_COUNT,
   DESCRIPTIONS,
   MIN_LIKES,
