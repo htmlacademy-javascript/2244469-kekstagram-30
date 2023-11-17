@@ -3,7 +3,7 @@ import { resetScale } from './scale.js';
 import { resetToDefault } from './effects.js';
 import { isValid, resetValidation } from './validation.js';
 import { sendData } from './api.js';
-import { showSuccessMessage } from './form-messages.js';
+import { showSuccessMessage, showUploadErrorMessage } from './form-messages.js';
 import { SubmitButtonStatus } from './constants.js';
 
 const imageUploadForm = document.querySelector('.img-upload__form');
@@ -54,19 +54,20 @@ const enableSubmitButton = () => {
   submitButton.textContent = SubmitButtonStatus.IDLE;
 };
 
-const setFormSubmit = (onSuccess) => {
-  imageUploadForm.addEventListener('submit', (evt) => {
+const setFormSubmit = () => {
+  imageUploadForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
     if (isValid) {
-      evt.preventDefault();
       disableSubmitButton();
-      sendData(new FormData(evt.target))
-        .then(onSuccess)
-        .catch((err) => {
-          console.log(err.message);
-        });
-      showSuccessMessage();
+      try {
+        await sendData(new FormData(evt.target));
+        evt.target.reset();
+        showSuccessMessage();
+      } catch {
+        showUploadErrorMessage();
+      }
+      enableSubmitButton();
     }
-    // showErrorMessage();
   });
 };
 

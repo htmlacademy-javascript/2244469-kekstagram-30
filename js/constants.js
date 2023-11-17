@@ -5,7 +5,7 @@ const Route = {
 };
 
 const SubmitButtonStatus = {
-  SENDING: 'Публикуем...',
+  SENDING: 'Публикую...',
   IDLE: 'Опубликовать',
 };
 

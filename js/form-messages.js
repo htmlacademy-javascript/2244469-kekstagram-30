@@ -12,21 +12,17 @@ const uploadSuccessMessageText = uploadSuccessMessageTemplate.querySelector('.su
 document.body.appendChild(uploadSuccessMessageElement);
 uploadSuccessMessageElement.classList.add('hidden');
 
-const hideErrorMessage = () => uploadErrorMessageElement.classList.add('hidden');
+const hideUploadErrorMessage = () => uploadErrorMessageElement.classList.add('hidden');
 
-const showErrorMessage = (message) => {
+const showUploadErrorMessage = (message) => {
   uploadErrorMessageElement.classList.remove('hidden');
   uploadErrorMessageText.textContent = message;
 };
-
-// uploadSuccessButton.addEventListener('click', () => uploadSuccessMessageElement.classList.add('hidden'));
 
 const closeSuccessMessage = () => {
   uploadSuccessMessageElement.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
 };
-
-// (evt.target === uploadSuccessButton || evt.target.classList.contains('success'))
 
 const showSuccessMessage = (message) => {
   uploadSuccessMessageElement.classList.remove('hidden');
@@ -51,7 +47,7 @@ const onErrorButtonClick = () => {
 };
 
 uploadErrorMessageElement.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('error__title') || evt.target.classList.contains('error')) {
+  if (evt.target.classList.contains('error__button') || evt.target.classList.contains('error')) {
     onErrorButtonClick();
   }
 });
@@ -63,4 +59,4 @@ function onDocumentKeydown(evt) {
   }
 }
 
-export { hideErrorMessage, showErrorMessage, showSuccessMessage, closeSuccessMessage };
+export { hideUploadErrorMessage, showUploadErrorMessage, showSuccessMessage, closeSuccessMessage };
