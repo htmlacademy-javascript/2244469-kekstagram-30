@@ -1,4 +1,5 @@
 import { isEscKey } from './utils.js';
+import { onFormEscKeydown } from './form.js';
 
 const uploadErrorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 const uploadErrorMessageElement = uploadErrorMessageTemplate.cloneNode('true');
@@ -12,14 +13,7 @@ const uploadSuccessMessageText = uploadSuccessMessageTemplate.querySelector('.su
 document.body.appendChild(uploadSuccessMessageElement);
 uploadSuccessMessageElement.classList.add('hidden');
 
-const hideUploadErrorMessage = () => uploadErrorMessageElement.classList.add('hidden');
-
-const showUploadErrorMessage = (message) => {
-  uploadErrorMessageElement.classList.remove('hidden');
-  uploadErrorMessageText.textContent = message;
-};
-
-const closeSuccessMessage = () => {
+const onSuccessButtonClick = () => {
   uploadSuccessMessageElement.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
 };
@@ -28,11 +22,6 @@ const showSuccessMessage = (message) => {
   uploadSuccessMessageElement.classList.remove('hidden');
   uploadSuccessMessageText.textContent = message;
   document.addEventListener('keydown', onDocumentKeydown);
-};
-
-const onSuccessButtonClick = () => {
-  uploadSuccessMessageElement.classList.add('hidden');
-  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 uploadSuccessMessageElement.addEventListener('click', (evt) => {
@@ -44,6 +33,14 @@ uploadSuccessMessageElement.addEventListener('click', (evt) => {
 const onErrorButtonClick = () => {
   uploadErrorMessageElement.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onFormEscKeydown);
+};
+
+const showUploadErrorMessage = (message) => {
+  uploadErrorMessageElement.classList.remove('hidden');
+  uploadErrorMessageText.textContent = message;
+  document.removeEventListener('keydown', onFormEscKeydown);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 uploadErrorMessageElement.addEventListener('click', (evt) => {
@@ -53,10 +50,11 @@ uploadErrorMessageElement.addEventListener('click', (evt) => {
 });
 
 function onDocumentKeydown(evt) {
+  evt.preventDefault();
   if (isEscKey(evt)) {
-    uploadSuccessMessageElement.classList.add('hidden');
-    uploadErrorMessageElement.classList.add('hidden');
+    onSuccessButtonClick();
+    onErrorButtonClick();
   }
 }
 
-export { hideUploadErrorMessage, showUploadErrorMessage, showSuccessMessage, closeSuccessMessage };
+export { showUploadErrorMessage, showSuccessMessage };

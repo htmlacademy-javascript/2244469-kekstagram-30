@@ -10,7 +10,7 @@ const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadContainer = imageUploadForm.querySelector('.img-upload__overlay');
 const imageUploadInput = imageUploadForm.querySelector('.img-upload__input');
 const imageUploadPreview = imageUploadForm.querySelector('.img-upload__preview img');
-const imageUploadCloseButton = imageUploadForm.querySelector('.cancel');
+const imageUploadCloseButton = imageUploadForm.querySelector('.img-upload__cancel');
 const userHashtagInput = imageUploadContainer.querySelector('.text__hashtags');
 const userDescriptionInput = imageUploadContainer.querySelector('.text__description');
 const submitButton = imageUploadForm.querySelector('.img-upload__submit');
@@ -30,7 +30,7 @@ imageUploadInput.addEventListener('change', () => {
   renderUploadImage();
   imageUploadContainer.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onFormEscKeydown);
 });
 
 const closeImageUploadForm = () => {
@@ -39,7 +39,7 @@ const closeImageUploadForm = () => {
   resetScale();
   imageUploadContainer.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onFormEscKeydown);
 };
 
 imageUploadCloseButton.addEventListener('click', closeImageUploadForm());
@@ -77,10 +77,11 @@ imageUploadForm.addEventListener('reset', () => {
   enableSubmitButton();
 });
 
-function onDocumentKeydown(evt) {
+function onFormEscKeydown(evt) {
   if (isEscKey(evt) && evt.target !== userHashtagInput && evt.target !== userDescriptionInput) {
+    evt.preventDefault();
     closeImageUploadForm();
   }
 }
 
-export { setFormSubmit, closeImageUploadForm };
+export { setFormSubmit, closeImageUploadForm, onFormEscKeydown };
