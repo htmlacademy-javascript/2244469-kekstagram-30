@@ -1,56 +1,87 @@
 import { isEscKey } from './utils.js';
 import { resetScale } from './scale.js';
 import { resetToDefault } from './effects.js';
+import { isValid, resetValidation } from './validation.js';
+import { sendData } from './api.js';
+import { showSuccessMessage, showUploadErrorMessage } from './form-messages.js';
+import { SubmitButtonStatus } from './constants.js';
 
 const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadContainer = imageUploadForm.querySelector('.img-upload__overlay');
 const imageUploadInput = imageUploadForm.querySelector('.img-upload__input');
-const imageUploadCloseButton = imageUploadForm.querySelector('.cancel');
+const imageUploadPreview = imageUploadForm.querySelector('.img-upload__preview img');
+const imageUploadCloseButton = imageUploadForm.querySelector('.img-upload__cancel');
 const userHashtagInput = imageUploadContainer.querySelector('.text__hashtags');
 const userDescriptionInput = imageUploadContainer.querySelector('.text__description');
-const submitButton = imageUploadContainer.querySelector('.img-upload__submit');
+const submitButton = imageUploadForm.querySelector('.img-upload__submit');
+const effectsPreviewImages = imageUploadForm.querySelectorAll('.effects__preview');
+
+const renderUploadImage = () => {
+  const imageUploadFile = imageUploadInput.files[0];
+  imageUploadPreview.src = URL.createObjectURL(imageUploadFile);
+
+  effectsPreviewImages.forEach((image) => {
+    image.style.backgroundImage = `url(${imageUploadPreview.src})`;
+  });
+};
 
 imageUploadInput.addEventListener('change', () => {
   resetToDefault();
+  renderUploadImage();
   imageUploadContainer.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onFormEscKeydown);
 });
-
-const pristine = new Pristine(imageUploadForm, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper--error'
-}
-);
 
 const closeImageUploadForm = () => {
   imageUploadForm.reset();
+  resetValidation();
   resetScale();
-  pristine.reset();
   imageUploadContainer.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onFormEscKeydown);
 };
 
 imageUploadCloseButton.addEventListener('click', closeImageUploadForm());
 
-imageUploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const disableSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonStatus.SENDING;
+};
+
+const enableSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonStatus.IDLE;
+};
+
+const setFormSubmit = () => {
+  imageUploadForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    if (isValid) {
+      disableSubmitButton();
+      try {
+        await sendData(new FormData(evt.target));
+        evt.target.reset();
+        showSuccessMessage();
+      } catch {
+        showUploadErrorMessage();
+      }
+      enableSubmitButton();
+    }
+  });
+};
 
 imageUploadForm.addEventListener('reset', () => {
   closeImageUploadForm();
-  pristine.reset();
+  resetValidation();
+  enableSubmitButton();
 });
 
-function onDocumentKeydown(evt) {
+function onFormEscKeydown(evt) {
   if (isEscKey(evt) && evt.target !== userHashtagInput && evt.target !== userDescriptionInput) {
+    evt.preventDefault();
     closeImageUploadForm();
   }
 }
 
-imageUploadContainer.classList.remove('hidden');// necessary for now
-
-export { submitButton, userHashtagInput, userDescriptionInput, pristine };
+export { setFormSubmit, closeImageUploadForm, onFormEscKeydown };

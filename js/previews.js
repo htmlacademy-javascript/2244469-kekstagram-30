@@ -1,19 +1,24 @@
 import './modal-window.js';
 import { openModalWindow } from './modal-window.js';
 
-//Список фото, сюда добавляем
 const picturesList = document.querySelector('.pictures');
-
-//Шаблон для добавления фото
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
-//documentFragment
 const picturesListFragment = document.createDocumentFragment();
 
-//Удаление фото
 const removePictures = () => {
   document.querySelectorAll('.picture').forEach((card) => {
     card.remove();
+  });
+};
+
+const setListener = (picturesArray) => {
+  picturesList.addEventListener('click', (evt) => {
+    if (evt.target.closest('.picture')) {
+      const id = parseInt((evt.target.closest('.picture').dataset.id), 10);
+      const picture = picturesArray.find((item) => item.id === id);
+      evt.preventDefault();
+      openModalWindow(picture);
+    }
   });
 };
 
@@ -31,17 +36,5 @@ const getPicturePreview = (picturesArray) => {
   picturesList.appendChild(picturesListFragment);
   setListener(picturesArray);
 };
-
-
-function setListener (picturesArray) {
-  picturesList.addEventListener('click', (evt) => {
-    if (evt.target.closest('.picture')) {
-      const id = parseInt((evt.target.closest('.picture').dataset.id), 10);
-      const picture = picturesArray.find((item) => item.id === id);
-      evt.preventDefault();
-      openModalWindow(picture);
-    }
-  });
-}
 
 export { getPicturePreview, picturesList, pictureTemplate, removePictures };

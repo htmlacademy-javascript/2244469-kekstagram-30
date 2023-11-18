@@ -5,8 +5,8 @@ import { renderComments, setSocialComments } from './comments.js';
 const modalWindow = document.querySelector('.big-picture');
 const modalCloseButton = modalWindow.querySelector('.cancel');
 
-const fullPictureImage = document.querySelector('.big-picture__img').querySelector('img'); //Image itself
-const fullPictureCaption = document.querySelector('.social__caption'); //Pic name
+const fullPictureImage = document.querySelector('.big-picture__img img');
+const fullPictureCaption = document.querySelector('.social__caption');
 const fullPictureLikesCount = document.querySelector('.likes-count');
 
 const socialCommentsShown = document.querySelector('.social__comment-shown-count');
@@ -56,4 +56,4 @@ function onDocumentKeydown(evt) {
   }
 }
 
-export { openModalWindow, socialCommentsShown };
+export { openModalWindow, socialCommentsShown, showModalWindow };

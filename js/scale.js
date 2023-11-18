@@ -5,17 +5,17 @@ const scaleButtonPlus = document.querySelector('.scale__control--bigger');
 const scaleInputValue = document.querySelector('.scale__control--value');
 const pictureUploadPreview = document.querySelector('.img-upload__preview img');
 
-let scaleCurrent = 100;
+let scaleCurrent = SCALE_DEFAULT;
 
-const scaleImage = () => {
-  pictureUploadPreview.style.transform = `scale(${scaleCurrent / 100})`;
-  scaleInputValue.value = `${scaleCurrent}%`;
+const scaleImage = (value) => {
+  pictureUploadPreview.style.transform = `scale(${value / 100})`;
+  scaleInputValue.value = `${value}%`;
 };
 
 const resetScale = () => {
+  scaleImage(SCALE_DEFAULT);
+  scaleInputValue.value = `${SCALE_DEFAULT}%`;
   scaleCurrent = SCALE_DEFAULT;
-  scaleImage(scaleCurrent);
-  scaleInputValue.value = `${scaleCurrent}%`;
 };
 
 const onMinusButtonClick = () => {

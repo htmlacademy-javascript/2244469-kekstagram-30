@@ -1,3 +1,14 @@
+const BASE_URL = 'https://30.javascript.pages.academy/kekstagram';
+const Route = {
+  GET_DATA: '/data',
+  SEND_DATA: '/',
+};
+
+const SubmitButtonStatus = {
+  SENDING: 'Публикую...',
+  IDLE: 'Опубликовать',
+};
+
 const PHOTOS_COUNT = 25;
 const DESCRIPTIONS = [
   'Мороз и солнце; день чудесный!',
@@ -45,6 +56,10 @@ const SCALE_DEFAULT = 100;
 const SCALE_STEP = 25;
 
 const EFFECTS = {
+  default: {
+    filter: 'none',
+    unit: '',
+  },
   chrome: {
     filter: 'grayscale',
     unit: '',
@@ -82,16 +97,14 @@ const EFFECTS = {
   }
 };
 
-const CURRENT_EFFECT = {
-  filter: '',
-  unit: '',
-};
-
 const SLIDER_DEFAULT_MAX = 100;
 const SLIDER_DEFAULT_MIN = 100;
-const SLIDER_DEFAULT_STEP = 100;
+const SLIDER_DEFAULT_STEP = 1;
 
 export {
+  BASE_URL,
+  Route,
+  SubmitButtonStatus,
   PHOTOS_COUNT,
   DESCRIPTIONS,
   MIN_LIKES,
@@ -111,7 +124,6 @@ export {
   SCALE_DEFAULT,
   SCALE_STEP,
   EFFECTS,
-  CURRENT_EFFECT,
   SLIDER_DEFAULT_MAX,
   SLIDER_DEFAULT_MIN,
   SLIDER_DEFAULT_STEP
