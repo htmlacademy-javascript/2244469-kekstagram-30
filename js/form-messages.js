@@ -4,14 +4,10 @@ import { onFormEscKeydown } from './form.js';
 const uploadErrorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 const uploadErrorMessageElement = uploadErrorMessageTemplate.cloneNode('true');
 const uploadErrorMessageText = uploadErrorMessageTemplate.querySelector('.error__title');
-document.body.appendChild(uploadErrorMessageElement);
-uploadErrorMessageElement.classList.add('hidden');
 
 const uploadSuccessMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const uploadSuccessMessageElement = uploadSuccessMessageTemplate.cloneNode('true');
 const uploadSuccessMessageText = uploadSuccessMessageTemplate.querySelector('.success__title');
-document.body.appendChild(uploadSuccessMessageElement);
-uploadSuccessMessageElement.classList.add('hidden');
 
 const onSuccessButtonClick = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -19,7 +15,7 @@ const onSuccessButtonClick = () => {
 };
 
 const showSuccessMessage = (message) => {
-  uploadSuccessMessageElement.classList.remove('hidden');
+  document.body.appendChild(uploadSuccessMessageElement);
   uploadSuccessMessageText.textContent = message;
   document.addEventListener('keydown', onDocumentKeydown);
 };
@@ -37,7 +33,7 @@ const onErrorButtonClick = () => {
 };
 
 const showUploadErrorMessage = (message) => {
-  uploadErrorMessageElement.classList.remove('hidden');
+  document.body.appendChild(uploadErrorMessageElement);
   uploadErrorMessageText.textContent = message;
   document.removeEventListener('keydown', onFormEscKeydown);
   document.addEventListener('keydown', onDocumentKeydown);
