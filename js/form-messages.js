@@ -10,12 +10,14 @@ const uploadSuccessMessageElement = uploadSuccessMessageTemplate.cloneNode('true
 const uploadSuccessMessageText = uploadSuccessMessageTemplate.querySelector('.success__title');
 
 const hideMessage = () => {
+  document.removeEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onFormEscKeydown);
   const existingMessageElement = document.querySelector('.success') || document.querySelector('.error');
   existingMessageElement.remove();
 };
 
 const onSuccessButtonClick = () => {
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onFormEscKeydown);
   hideMessage();
 };
 
@@ -31,11 +33,7 @@ uploadSuccessMessageElement.addEventListener('click', (evt) => {
   }
 });
 
-const onErrorButtonClick = () => {
-  document.removeEventListener('keydown', onDocumentKeydown);
-  document.addEventListener('keydown', onFormEscKeydown);
-  hideMessage();
-};
+const onErrorButtonClick = () => hideMessage();
 
 const showUploadErrorMessage = (message) => {
   document.body.appendChild(uploadErrorMessageElement);
@@ -51,10 +49,9 @@ uploadErrorMessageElement.addEventListener('click', (evt) => {
 });
 
 function onDocumentKeydown(evt) {
-  evt.preventDefault();
   if (isEscKey(evt)) {
-    onSuccessButtonClick();
-    onErrorButtonClick();
+    evt.preventDefault();
+    hideMessage();
   }
 }
 
