@@ -4,7 +4,7 @@ import { resetToDefault } from './effects.js';
 import { isValid, resetValidation } from './validation.js';
 import { sendData } from './api.js';
 import { showSuccessMessage, showUploadErrorMessage } from './form-messages.js';
-import { SubmitButtonStatus } from './constants.js';
+import { ErrorText, SubmitButtonStatus } from './constants.js';
 
 const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadContainer = imageUploadForm.querySelector('.img-upload__overlay');
@@ -65,6 +65,7 @@ const setFormSubmit = () => {
         showSuccessMessage();
       } catch {
         showUploadErrorMessage();
+        throw new Error(ErrorText.SEND_DATA);
       }
       enableSubmitButton();
     }

@@ -1,15 +1,15 @@
+import { TIMEOUT } from './constants';
+
 const dataDownloadErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
 const dataDownloadErrorElement = dataDownloadErrorTemplate.cloneNode('true');
 const dataDownloadErrorMessage = dataDownloadErrorTemplate.querySelector('.data-error__title');
-document.body.appendChild(dataDownloadErrorElement);
-dataDownloadErrorElement.classList.add('hidden');
 
-const hideErrorMessage = () => dataDownloadErrorElement.classList.add('hidden');
+const removeErrorMessage = () => document.body.removeChild(dataDownloadErrorElement);
 
-const closeErrorMessage = () => setTimeout(hideErrorMessage, 5000);
+const closeErrorMessage = () => setTimeout(removeErrorMessage, TIMEOUT);
 
 const showErrorMessage = (message) => {
-  dataDownloadErrorElement.classList.remove('hidden');
+  document.body.appendChild(dataDownloadErrorElement);
   dataDownloadErrorMessage.textContent = message;
   closeErrorMessage();
 };

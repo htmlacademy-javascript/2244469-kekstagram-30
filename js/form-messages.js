@@ -14,8 +14,8 @@ document.body.appendChild(uploadSuccessMessageElement);
 uploadSuccessMessageElement.classList.add('hidden');
 
 const onSuccessButtonClick = () => {
-  uploadSuccessMessageElement.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
+  document.body.removeChild(uploadSuccessMessageElement);
 };
 
 const showSuccessMessage = (message) => {
@@ -31,9 +31,9 @@ uploadSuccessMessageElement.addEventListener('click', (evt) => {
 });
 
 const onErrorButtonClick = () => {
-  uploadErrorMessageElement.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
   document.addEventListener('keydown', onFormEscKeydown);
+  document.body.removeChild(uploadErrorMessageElement);
 };
 
 const showUploadErrorMessage = (message) => {

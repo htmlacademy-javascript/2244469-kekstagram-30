@@ -1,8 +1,15 @@
-const BASE_URL = 'https://30.javascript.pages.academy/kekstagram';
+const BASE_URL = 'https://30.javascript.pages.academy/kekstagram1';
 const Route = {
   GET_DATA: '/data',
   SEND_DATA: '/',
 };
+
+const ErrorText = {
+  GET_DATA: 'Не удалось загрузить данные с сервера',
+  SEND_DATA: 'Не удалось отправить форму',
+};
+
+const TIMEOUT = 5000;
 
 const SubmitButtonStatus = {
   SENDING: 'Публикую...',
@@ -104,6 +111,8 @@ const SLIDER_DEFAULT_STEP = 1;
 export {
   BASE_URL,
   Route,
+  ErrorText,
+  TIMEOUT,
   SubmitButtonStatus,
   PHOTOS_COUNT,
   DESCRIPTIONS,

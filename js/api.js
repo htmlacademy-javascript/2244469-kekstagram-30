@@ -1,5 +1,5 @@
-import { BASE_URL, Route } from './constants';
-import { showErrorMessage } from './loading-error.js';
+import { BASE_URL, Route, ErrorText } from './constants';
+// import { showErrorMessage } from './loading-error.js';
 
 const getData = () => fetch(
   `${BASE_URL}${Route.GET_DATA}`)
@@ -7,11 +7,7 @@ const getData = () => fetch(
     if (response.ok) {
       return response.json();
     }
-    showErrorMessage();
-    throw new Error('Не удалось загрузить данные с сервера:'`${response.status} ${response.statusText}`);
-  })
-  .catch(() => {
-    throw new Error('Не удалось загрузить данные с сервера');
+    throw new Error(`${response.status} ${response.statusText}`);
   });
 
 const sendData = (body) => fetch(
@@ -22,11 +18,8 @@ const sendData = (body) => fetch(
   })
   .then((response) => {
     if (!response.ok) {
-      throw new Error();
+      throw new Error(ErrorText.SEND_DATA);
     }
-  })
-  .catch(() => {
-    throw new Error('Не удалось отправить форму');
   });
 
 export { getData, sendData };
