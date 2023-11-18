@@ -9,9 +9,14 @@ const uploadSuccessMessageTemplate = document.querySelector('#success').content.
 const uploadSuccessMessageElement = uploadSuccessMessageTemplate.cloneNode('true');
 const uploadSuccessMessageText = uploadSuccessMessageTemplate.querySelector('.success__title');
 
+const hideMessage = () => {
+  const existingMessageElement = document.querySelector('.success') || document.querySelector('.error');
+  existingMessageElement.remove();
+};
+
 const onSuccessButtonClick = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
-  document.body.removeChild(uploadSuccessMessageElement);
+  hideMessage();
 };
 
 const showSuccessMessage = (message) => {
@@ -29,7 +34,7 @@ uploadSuccessMessageElement.addEventListener('click', (evt) => {
 const onErrorButtonClick = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
   document.addEventListener('keydown', onFormEscKeydown);
-  document.body.removeChild(uploadErrorMessageElement);
+  hideMessage();
 };
 
 const showUploadErrorMessage = (message) => {

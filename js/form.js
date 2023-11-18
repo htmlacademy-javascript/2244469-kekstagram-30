@@ -64,10 +64,10 @@ const setFormSubmit = () => {
         evt.target.reset();
         showSuccessMessage();
       } catch {
+        enableSubmitButton();
         showUploadErrorMessage();
         throw new Error(ErrorText.SEND_DATA);
       }
-      enableSubmitButton();
     }
   });
 };
