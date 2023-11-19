@@ -1,5 +1,4 @@
 import { BASE_URL, Route, ErrorText } from './constants';
-// import { showErrorMessage } from './loading-error.js';
 
 const getData = () => fetch(
   `${BASE_URL}${Route.GET_DATA}`)

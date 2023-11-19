@@ -6,11 +6,11 @@ const socialCommentsItem = document.querySelector('.social__comment');
 const commentsLoader = document.querySelector('.comments-loader');
 
 const commentsArray = [];
-let showCommentsCount = 0;
+let shownCommentsCount = 0;
 let totalCommentsCount = 0;
 
 const renderButton = () => {
-  if (totalCommentsCount <= showCommentsCount) {
+  if (totalCommentsCount <= shownCommentsCount) {
     commentsLoader.classList.add('hidden');
   } else {
     commentsLoader.classList.remove('hidden');
@@ -22,7 +22,7 @@ const renderCommentElement = (showComment) => {
   const commentElementImage = commentElement.querySelector('.social__picture');
   commentElementImage.src = showComment.avatar;
   commentElementImage.alt = showComment.name;
-  socialCommentsShown.textContent = showCommentsCount;
+  socialCommentsShown.textContent = shownCommentsCount;
   commentElement.querySelector('.social__text').textContent = showComment.message;
   return commentElement;
 };
@@ -30,7 +30,7 @@ const renderCommentElement = (showComment) => {
 const renderComments = () => {
   const commentsFragment = document.createDocumentFragment();
   commentsArray.splice(0, COMMENTS_TO_LOAD).forEach((item) => {
-    showCommentsCount++;
+    shownCommentsCount++;
     commentsFragment.appendChild(renderCommentElement(item));
   });
   socialCommentsContainer.appendChild(commentsFragment);
@@ -39,7 +39,7 @@ const renderComments = () => {
 
 const setSocialComments = (data) => {
   socialCommentsContainer.innerHTML = '';
-  showCommentsCount = 0;
+  shownCommentsCount = 0;
   commentsArray.length = 0;
   commentsArray.push(...data.slice());
   totalCommentsCount = commentsArray.length;
