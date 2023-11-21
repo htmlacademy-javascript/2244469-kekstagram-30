@@ -15,7 +15,7 @@ const dataDownloadErrorElement = dataDownloadErrorTemplate.cloneNode('true');
 const dataDownloadErrorMessage = dataDownloadErrorTemplate.querySelector('.data-error__title');
 
 
-const removeErrorMessage = () => document.body.remove(dataDownloadErrorElement);
+const removeErrorMessage = () => document.body.removeChild(dataDownloadErrorElement);
 
 const closeErrorMessage = () => setTimeout(removeErrorMessage, TIMEOUT);
 

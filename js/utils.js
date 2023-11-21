@@ -1,3 +1,5 @@
+import { DEBOUNCE_DELAY } from './constants';
+
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -22,4 +24,12 @@ const getUniqueRandomInteger = (min, max) => {
 
 const isEscKey = (evt) => evt.key === 'Escape';
 
-export { getRandomInteger, getUniqueRandomInteger, isEscKey };
+const setDebounce = (callback, timeoutDelay = DEBOUNCE_DELAY) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export { getRandomInteger, getUniqueRandomInteger, isEscKey, setDebounce };

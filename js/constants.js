@@ -9,13 +9,16 @@ const ErrorText = {
   SEND_DATA: 'Не удалось отправить форму',
 };
 
-const TIMEOUT = 5000;
-
 const SubmitButtonStatus = {
   SENDING: 'Публикую...',
   IDLE: 'Опубликовать',
 };
 
+const UPLOAD_FILE_TYPES = ['png', 'jpeg', 'jpg'];
+
+const RANDOM_PHOTOS_COUNT = 10;
+const DEBOUNCE_DELAY = 500;
+const TIMEOUT = 5000;
 const COMMENTS_TO_LOAD = 5;
 const HASHTAGS_MAX_NUMBER = 5;
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -75,8 +78,11 @@ export {
   BASE_URL,
   Route,
   ErrorText,
+  RANDOM_PHOTOS_COUNT,
+  DEBOUNCE_DELAY,
   TIMEOUT,
   SubmitButtonStatus,
+  UPLOAD_FILE_TYPES,
   COMMENTS_TO_LOAD,
   HASHTAGS_MAX_NUMBER,
   HASHTAG_REGEX,

@@ -6,7 +6,7 @@ const getData = () => fetch(
     if (response.ok) {
       return response.json();
     }
-    throw new Error(`${response.status} ${response.statusText}`);
+    throw new Error(ErrorText.GET_DATA);
   });
 
 const sendData = (body) => fetch(
