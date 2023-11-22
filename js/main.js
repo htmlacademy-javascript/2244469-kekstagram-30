@@ -17,7 +17,7 @@ try {
   setPicturesFilter(picturesArray);
 } catch {
   showErrorMessage();
-  throw new Error(ErrorText.GET_DATA);
+  throw new Error(ErrorText.GET);
 }
 
 setFormSubmit(closeImageUploadForm);

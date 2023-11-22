@@ -37,6 +37,17 @@ imageUploadInput.addEventListener('change', () => {
   document.addEventListener('keydown', onFormEscKeydown);
 });
 
+// const setFormSubmit = () => {
+//   imageUploadInput.addEventListener('change', () => {
+//     resetToDefault();
+//     renderUploadImage();
+//     imageUploadContainer.classList.remove('hidden');
+//     document.body.classList.add('modal-open');
+//     document.addEventListener('keydown', onFormEscKeydown);
+//   });
+// };
+
+
 const closeImageUploadForm = () => {
   imageUploadForm.reset();
   resetValidation();
@@ -70,11 +81,27 @@ const setFormSubmit = () => {
       } catch {
         enableSubmitButton();
         showUploadErrorMessage();
-        throw new Error(ErrorText.SEND_DATA);
+        throw new Error(ErrorText.POST);
       }
     }
   });
 };
+
+// imageUploadForm.addEventListener('submit', async (evt) => {
+//   evt.preventDefault();
+//   if (isValid) {
+//     disableSubmitButton();
+//     try {
+//       await sendData(new FormData(evt.target));
+//       evt.target.reset();
+//       showSuccessMessage();
+//     } catch {
+//       enableSubmitButton();
+//       showUploadErrorMessage();
+//       throw new Error(ErrorText.POST);
+//     }
+//   }
+// });
 
 imageUploadForm.addEventListener('reset', () => {
   closeImageUploadForm();
