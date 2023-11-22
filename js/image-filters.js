@@ -1,5 +1,5 @@
 import { getUniqueRandomInteger, setDebounce } from './utils.js';
-import { getPicturePreview, removePictures } from './previews.js';
+import { getPicturePreview } from './previews.js';
 import { RANDOM_PHOTOS_COUNT } from './constants';
 
 const imageFiltersContainer = document.querySelector('.img-filters');
@@ -16,10 +16,10 @@ let currentFilter = imageFiltersContainer.querySelector(`#${Filters.DEFAULT}`);
 const filterRandomly = (picturesArray) => {
   const randomPictures = [];
   const getRandomIndex = getUniqueRandomInteger(0, picturesArray.length - 1);
-  for (let i = 0; i < RANDOM_PHOTOS_COUNT; i++) {
+  const max = Math.min(RANDOM_PHOTOS_COUNT, picturesArray.length);
+  while (randomPictures.length < max) {
     randomPictures.push(getRandomIndex());
   }
-  // console.log(randomPictures);
   return randomPictures.map((index) => picturesArray[index]);
 };
 
@@ -40,20 +40,18 @@ const filterOptions = {
   [Filters.DISCUSSED]: filterMostDiscussed
 };
 
+const switchActiveButton = (chosenFilterButton) => {
+  document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+  chosenFilterButton.classList.add('img-filters__button--active');
+  currentFilter = chosenFilterButton;
+};
+
 const renderAnew = (picturesArray, filter) => {
   if (filter !== currentFilter) {
     const filteredPictures = filterOptions[filter.id](picturesArray);
-    removePictures();
     getPicturePreview(filteredPictures);
     currentFilter = filter;
-  }
-};
-
-const switchActiveButton = (chosenFilterButton) => {
-  if (chosenFilterButton !== currentFilter) {
-    chosenFilterButton.classList.add('img-filters__button--active');
-    currentFilter.classList.remove('img-filters__button--active');
-    chosenFilterButton = currentFilter;
+    switchActiveButton(filter);
   }
 };
 
@@ -66,7 +64,6 @@ const setPicturesFilter = (picturesArray) => {
     const clickedButton = evt.target.closest('.img-filters__button');
 
     if (clickedButton) {
-      switchActiveButton(clickedButton);
       debouncedRendering(picturesArray, clickedButton);
     }
   });

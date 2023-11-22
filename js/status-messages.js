@@ -1,5 +1,5 @@
 import { isEscKey } from './utils.js';
-import { onFormEscKeydown } from './form.js';
+import { onFormEscKeydown, closeImageUploadForm } from './form.js';
 import { TIMEOUT } from './constants.js';
 
 const uploadErrorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -25,16 +25,9 @@ const showErrorMessage = (message) => {
   closeErrorMessage();
 };
 
-const hideMessage = () => {
-  document.removeEventListener('keydown', onDocumentKeydown);
-  document.addEventListener('keydown', onFormEscKeydown);
+const removeUploadMessage = () => {
   const existingMessageElement = document.querySelector('.success') || document.querySelector('.error');
   existingMessageElement.remove();
-};
-
-const onSuccessButtonClick = () => {
-  hideMessage();
-  document.removeEventListener('keydown', onFormEscKeydown);
 };
 
 const showSuccessMessage = (message) => {
@@ -43,14 +36,26 @@ const showSuccessMessage = (message) => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const onErrorButtonClick = () => hideMessage();
+const onSuccessButtonClick = () => {
+  removeUploadMessage();
+  closeImageUploadForm();
+  document.removeEventListener('keydown', onDocumentKeydown);
+};
 
 const showUploadErrorMessage = (message) => {
   document.body.appendChild(uploadErrorMessageElement);
   uploadErrorMessageText.textContent = message;
+  document.addEventListener('keydown', onErrorEscKeydown);
   document.removeEventListener('keydown', onFormEscKeydown);
-  document.addEventListener('keydown', onDocumentKeydown);
 };
+
+const closeUploadErrorMessage = () => {
+  removeUploadMessage();
+  document.removeEventListener('keydown', onErrorEscKeydown);
+  document.addEventListener('keydown', onFormEscKeydown);
+};
+
+const onErrorButtonClick = () => closeUploadErrorMessage();
 
 uploadSuccessMessageElement.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('success__button') || evt.target.classList.contains('success')) {
@@ -67,7 +72,15 @@ uploadErrorMessageElement.addEventListener('click', (evt) => {
 function onDocumentKeydown(evt) {
   if (isEscKey(evt)) {
     evt.preventDefault();
-    hideMessage();
+    onSuccessButtonClick();
+  }
+}
+
+function onErrorEscKeydown(evt) {
+  if (isEscKey(evt)) {
+    evt.preventDefault();
+    onErrorButtonClick();
+    document.removeEventListener('keydown', onErrorEscKeydown);
   }
 }
 
