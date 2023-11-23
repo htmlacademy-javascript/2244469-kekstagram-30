@@ -51,7 +51,6 @@ const renderAnew = (picturesArray, filter) => {
     const filteredPictures = filterOptions[filter.id](picturesArray);
     getPicturePreview(filteredPictures);
     currentFilter = filter;
-    switchActiveButton(filter);
   }
 };
 
@@ -64,6 +63,7 @@ const setPicturesFilter = (picturesArray) => {
     const clickedButton = evt.target.closest('.img-filters__button');
 
     if (clickedButton) {
+      switchActiveButton(clickedButton);
       debouncedRendering(picturesArray, clickedButton);
     }
   });
