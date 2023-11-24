@@ -4,14 +4,9 @@ const Route = {
   SEND_DATA: '/',
 };
 
-const HttpMethods = {
-  GET: 'GET',
-  POST: 'POST',
-};
-
 const ErrorText = {
-  [HttpMethods.GET]: 'Не удалось загрузить данные с сервера',
-  [HttpMethods.POST]: 'Не удалось отправить форму',
+  GET_DATA: 'Не удалось загрузить данные с сервера',
+  POST_DATA: 'Не удалось отправить форму',
 };
 
 const SubmitButtonStatus = {
@@ -82,7 +77,6 @@ const SLIDER_DEFAULT_STEP = 1;
 export {
   BASE_URL,
   Route,
-  HttpMethods,
   ErrorText,
   RANDOM_PHOTOS_COUNT,
   DEBOUNCE_DELAY,
