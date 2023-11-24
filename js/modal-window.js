@@ -1,4 +1,3 @@
-import './previews.js';
 import { isEscKey } from './utils.js';
 import { renderComments, setSocialComments } from './comments.js';
 

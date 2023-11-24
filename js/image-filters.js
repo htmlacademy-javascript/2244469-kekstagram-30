@@ -41,9 +41,11 @@ const filterOptions = {
 };
 
 const switchActiveButton = (chosenFilterButton) => {
-  document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-  chosenFilterButton.classList.add('img-filters__button--active');
-  currentFilter = chosenFilterButton;
+  if (chosenFilterButton !== currentFilter) {
+    currentFilter.classList.remove('img-filters__button--active');
+    chosenFilterButton.classList.add('img-filters__button--active');
+    chosenFilterButton = currentFilter;
+  }
 };
 
 const renderAnew = (picturesArray, filter) => {
@@ -60,11 +62,11 @@ const setPicturesFilter = (picturesArray) => {
   imageFiltersContainer.classList.remove('img-filters--inactive');
 
   imageFiltersForm.addEventListener('click', (evt) => {
-    const clickedButton = evt.target.closest('.img-filters__button');
+    const chosenFilter = evt.target.closest('.img-filters__button');
 
-    if (clickedButton) {
-      switchActiveButton(clickedButton);
-      debouncedRendering(picturesArray, clickedButton);
+    if (chosenFilter) {
+      switchActiveButton(chosenFilter);
+      debouncedRendering(picturesArray, chosenFilter);
     }
   });
 };
