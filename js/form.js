@@ -4,7 +4,7 @@ import { resetToDefault } from './effects.js';
 import { isValid, resetValidation } from './validation.js';
 import { sendData } from './api.js';
 import { showSuccessMessage, showUploadErrorMessage } from './status-messages.js';
-import { ErrorText, SubmitButtonStatus } from './constants.js';
+import { ErrorText, SubmitButtonStatus, UPLOAD_FILE_TYPES } from './constants.js';
 
 const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadContainer = imageUploadForm.querySelector('.img-upload__overlay');
@@ -18,11 +18,15 @@ const effectsPreviewImages = imageUploadForm.querySelectorAll('.effects__preview
 
 const renderUploadImage = () => {
   const imageUploadFile = imageUploadInput.files[0];
-  imageUploadPreview.src = URL.createObjectURL(imageUploadFile);
+  const imageFile = imageUploadFile.name.toLowerCase();
+  const acceptableFileType = UPLOAD_FILE_TYPES.some((it) => imageFile.endsWith(it));
+  if (acceptableFileType) {
+    imageUploadPreview.src = URL.createObjectURL(imageUploadFile);
 
-  effectsPreviewImages.forEach((image) => {
-    image.style.backgroundImage = `url(${imageUploadPreview.src})`;
-  });
+    effectsPreviewImages.forEach((image) => {
+      image.style.backgroundImage = `url(${imageUploadPreview.src})`;
+    });
+  }
 };
 
 imageUploadInput.addEventListener('change', () => {
@@ -66,7 +70,7 @@ const setFormSubmit = () => {
       } catch {
         enableSubmitButton();
         showUploadErrorMessage();
-        throw new Error(ErrorText.SEND_DATA);
+        throw new Error(ErrorText.POST);
       }
     }
   });
@@ -82,6 +86,7 @@ function onFormEscKeydown(evt) {
   if (isEscKey(evt) && evt.target !== userHashtagInput && evt.target !== userDescriptionInput) {
     evt.preventDefault();
     closeImageUploadForm();
+    document.removeEventListener('keydown', onFormEscKeydown);
   }
 }
 

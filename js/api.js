@@ -1,24 +1,20 @@
-import { BASE_URL, Route, ErrorText } from './constants';
+import { BASE_URL, Route, HttpMethods, ErrorText } from './constants';
 
-const getData = () => fetch(
-  `${BASE_URL}${Route.GET_DATA}`)
-  .then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
-    throw new Error(ErrorText.GET_DATA);
-  });
+const fetchData = async (url, method = HttpMethods.GET, body = null) => {
+  const response = await fetch(url, { method, body });
+  if (!response.ok) {
+    throw new Error(ErrorText[method]);
+  }
+  return response.json();
+};
 
-const sendData = (body) => fetch(
-  `${BASE_URL}${Route.SEND_DATA}`,
-  {
-    method: 'POST',
+const getData = async () => fetchData(`${BASE_URL}${Route.GET_DATA}`);
+
+const sendData = async (body) =>
+  fetchData(
+    `${BASE_URL}${Route.SEND_DATA}`,
+    HttpMethods.POST,
     body,
-  })
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(ErrorText.SEND_DATA);
-    }
-  });
+  );
 
 export { getData, sendData };

@@ -1,9 +1,3 @@
-import './utils.js';
-import './modal-window.js';
-import './validation.js';
-import './scale.js';
-import './effects.js';
-import './image-filters.js';
 import { getPicturePreview } from './previews.js';
 import { getData } from './api.js';
 import { setFormSubmit, closeImageUploadForm } from './form.js';
@@ -17,7 +11,7 @@ try {
   setPicturesFilter(picturesArray);
 } catch {
   showErrorMessage();
-  throw new Error(ErrorText.GET_DATA);
+  throw new Error(ErrorText.GET);
 }
 
 setFormSubmit(closeImageUploadForm);
