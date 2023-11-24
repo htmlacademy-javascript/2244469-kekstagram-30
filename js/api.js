@@ -1,4 +1,4 @@
-import { BASE_URL, Route, ErrorText } from './constants';
+import { BASE_URL, Route, ErrorText } from './constants.js';
 
 const getData = () => fetch(
   `${BASE_URL}${Route.GET_DATA}`)
