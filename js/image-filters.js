@@ -12,6 +12,7 @@ const Filters = {
 };
 
 let currentFilter = imageFiltersContainer.querySelector(`#${Filters.DEFAULT}`);
+let activeButton = currentFilter;
 
 const filterRandomly = (picturesArray) => {
   const randomPictures = [];
@@ -41,10 +42,10 @@ const filterOptions = {
 };
 
 const switchActiveButton = (chosenFilterButton) => {
-  if (chosenFilterButton !== currentFilter) {
-    currentFilter.classList.remove('img-filters__button--active');
+  if (chosenFilterButton !== activeButton) {
     chosenFilterButton.classList.add('img-filters__button--active');
-    chosenFilterButton = currentFilter;
+    activeButton.classList.remove('img-filters__button--active');
+    activeButton = chosenFilterButton;
   }
 };
 
@@ -60,10 +61,8 @@ const debouncedRendering = setDebounce(renderAnew);
 
 const setPicturesFilter = (picturesArray) => {
   imageFiltersContainer.classList.remove('img-filters--inactive');
-
   imageFiltersForm.addEventListener('click', (evt) => {
     const chosenFilter = evt.target.closest('.img-filters__button');
-
     if (chosenFilter) {
       switchActiveButton(chosenFilter);
       debouncedRendering(picturesArray, chosenFilter);

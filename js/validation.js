@@ -16,7 +16,7 @@ const ErrorText = {
   INVALID_HASHTAG_SYNTAX: 'Некорректный хэш-тег'
 };
 
-const getHashtagsArray = (value) => value.trim().split(' ').filter(Boolean);
+const getHashtagsArray = (value) => value.trim().toLowerCase().split(' ').filter(Boolean);
 
 const validateHashtagSyntax = (value) => getHashtagsArray(value).every((hashtag) => HASHTAG_REGEX.test(hashtag));
 
@@ -67,4 +67,4 @@ pristine.addValidator(
 const isValid = () => pristine.validate();
 const resetValidation = () => pristine.reset();
 
-export { pristine, isValid, resetValidation};
+export { pristine, isValid, resetValidation };
