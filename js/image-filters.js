@@ -1,6 +1,6 @@
 import { getUniqueRandomInteger, setDebounce } from './utils.js';
 import { getPicturePreview } from './previews.js';
-import { RANDOM_PHOTOS_COUNT } from './constants';
+import { RANDOM_PHOTOS_COUNT } from './constants.js';
 
 const imageFiltersContainer = document.querySelector('.img-filters');
 const imageFiltersForm = imageFiltersContainer.querySelector('.img-filters__form');
