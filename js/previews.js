@@ -28,8 +28,8 @@ const getPicturePreview = (picturesArray) => {
     pictureElement.dataset.id = id;
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__img').alt = description;
-    pictureElement.querySelector('.picture__likes').textContent = likes;
-    pictureElement.querySelector('.picture__comments').textContent = comments.length;
+    pictureElement.querySelector('.picture__likes').textContent = String(likes);
+    pictureElement.querySelector('.picture__comments').textContent = String(comments.length);
     picturesListFragment.appendChild(pictureElement);
   });
   picturesList.appendChild(picturesListFragment);
