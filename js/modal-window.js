@@ -3,21 +3,18 @@ import { renderComments, setSocialComments } from './comments.js';
 
 const modalWindow = document.querySelector('.big-picture');
 const modalCloseButton = modalWindow.querySelector('.cancel');
-
 const fullPictureImage = document.querySelector('.big-picture__img img');
 const fullPictureCaption = document.querySelector('.social__caption');
 const fullPictureLikesCount = document.querySelector('.likes-count');
-
 const socialCommentsShown = document.querySelector('.social__comment-shown-count');
 const socialCommentsTotal = document.querySelector('.social__comment-total-count');
-
 
 const renderModalWindow = (picture) => {
   fullPictureImage.src = picture.url;
   fullPictureCaption.textContent = picture.description;
-  fullPictureLikesCount.textContent = picture.likes;
-  socialCommentsShown.textContent = picture.comments.length;
-  socialCommentsTotal.textContent = picture.comments.length;
+  fullPictureLikesCount.textContent = String(picture.likes);
+  socialCommentsShown.textContent = String(picture.comments.length);
+  socialCommentsTotal.textContent = String(picture.comments.length);
 
   renderComments();
 };
