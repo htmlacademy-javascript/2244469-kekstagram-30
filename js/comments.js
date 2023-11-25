@@ -22,7 +22,7 @@ const renderCommentElement = (showComment) => {
   const commentElementImage = commentElement.querySelector('.social__picture');
   commentElementImage.src = showComment.avatar;
   commentElementImage.alt = showComment.name;
-  socialCommentsShown.textContent = shownCommentsCount;
+  socialCommentsShown.textContent = String(shownCommentsCount);
   commentElement.querySelector('.social__text').textContent = showComment.message;
   return commentElement;
 };
