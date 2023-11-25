@@ -2,14 +2,14 @@ import { getUniqueRandomInteger, setDebounce } from './utils.js';
 import { getPicturePreview } from './previews.js';
 import { RANDOM_PHOTOS_COUNT } from './constants.js';
 
-const imageFiltersContainer = document.querySelector('.img-filters');
-const imageFiltersForm = imageFiltersContainer.querySelector('.img-filters__form');
-
 const Filters = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed'
 };
+
+const imageFiltersContainer = document.querySelector('.img-filters');
+const imageFiltersForm = imageFiltersContainer.querySelector('.img-filters__form');
 
 let currentFilter = imageFiltersContainer.querySelector(`#${Filters.DEFAULT}`);
 let activeButton = currentFilter;
